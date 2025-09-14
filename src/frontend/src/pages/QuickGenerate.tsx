@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Container, Title, Card, Button, Text, IconWrapper, Grid } from '../styles/components';
+import CircularMenu from '../components/CircularMenu';
 
 const NavBar = styled.div`
   display: flex;
@@ -11,10 +11,8 @@ const NavBar = styled.div`
   width: 100%;
 `;
 
-const NavButton = styled(Button)`
-  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
-  font-size: ${props => props.theme.fontSizes.sm};
-  margin: 0 ${props => props.theme.spacing.xs};
+const StyledCircularMenu = styled(CircularMenu)`
+  /* Custom styling if needed */
 `;
 
 const AppTitle = styled(Title)`
@@ -73,7 +71,6 @@ const MagicWand = styled.div`
 `;
 
 const QuickGenerate: React.FC = () => {
-  const navigate = useNavigate();
   const [selectedProfile, setSelectedProfile] = useState('emma');
   const [selectedLength, setSelectedLength] = useState('medium');
   const [selectedVoice, setSelectedVoice] = useState('female');
@@ -109,17 +106,7 @@ const QuickGenerate: React.FC = () => {
     <Container>
       <NavBar>
         <AppTitle>TaleWeaver</AppTitle>
-        <div>
-          <NavButton variant="secondary" onClick={() => navigate('/children-manager')}>
-            👨‍👩‍👧‍👦 Manage Children
-          </NavButton>
-          <NavButton variant="secondary" onClick={() => navigate('/custom-story')}>
-            📚 Custom Story
-          </NavButton>
-          <NavButton variant="secondary" onClick={() => navigate('/dashboard')}>
-            🏠 Menu
-          </NavButton>
-        </div>
+        <StyledCircularMenu />
       </NavBar>
       
       <Card>
