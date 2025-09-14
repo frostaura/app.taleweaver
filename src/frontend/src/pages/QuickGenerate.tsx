@@ -3,9 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Container, Title, Card, Button, Text, IconWrapper, Grid } from '../styles/components';
 
-const BackButton = styled(Button)`
+const NavBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: ${props => props.theme.spacing.lg};
-  align-self: flex-start;
+  width: 100%;
+`;
+
+const NavButton = styled(Button)`
+  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
+  font-size: ${props => props.theme.fontSizes.sm};
+  margin: 0 ${props => props.theme.spacing.xs};
+`;
+
+const AppTitle = styled(Title)`
+  margin: 0;
+  font-size: ${props => props.theme.fontSizes.lg};
 `;
 
 const ProfileSelector = styled.select`
@@ -93,9 +107,20 @@ const QuickGenerate: React.FC = () => {
 
   return (
     <Container>
-      <BackButton variant="secondary" onClick={() => navigate('/')}>
-        ← Back
-      </BackButton>
+      <NavBar>
+        <AppTitle>TaleWeaver</AppTitle>
+        <div>
+          <NavButton variant="secondary" onClick={() => navigate('/children-manager')}>
+            👨‍👩‍👧‍👦 Manage Children
+          </NavButton>
+          <NavButton variant="secondary" onClick={() => navigate('/custom-story')}>
+            📚 Custom Story
+          </NavButton>
+          <NavButton variant="secondary" onClick={() => navigate('/dashboard')}>
+            🏠 Menu
+          </NavButton>
+        </div>
+      </NavBar>
       
       <Card>
         <IconWrapper size="large">
