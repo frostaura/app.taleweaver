@@ -5,6 +5,8 @@ export const mockProfiles: ChildProfile[] = [
     id: 'profile-1',
     name: 'Emma',
     age: 5,
+    gender: 'female',
+    customRestrictions: 'Keep stories gentle and peaceful. Emma is sensitive to loud noises in stories.',
     createdAt: new Date('2024-01-15'),
     defaultSettings: {
       themes: ['magical-forest', 'castle-kingdom'],
@@ -32,6 +34,8 @@ export const mockProfiles: ChildProfile[] = [
     id: 'profile-2',
     name: 'Alex',
     age: 8,
+    gender: 'male',
+    customRestrictions: 'Alex loves space and science but gets nightmares from monster stories. Include facts and exploration themes.',
     createdAt: new Date('2024-01-20'),
     defaultSettings: {
       themes: ['space-journey', 'science-lab'],
