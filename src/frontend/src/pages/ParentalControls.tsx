@@ -124,6 +124,13 @@ const ParentalControls: React.FC = () => {
                   </ProfileCard>
                 ))}
               </Grid>
+              <Button 
+                variant="accent" 
+                onClick={() => navigate('/children-manager')}
+                style={{ width: '100%', marginTop: '16px' }}
+              >
+                👨‍👩‍👧‍👦 Manage Children
+              </Button>
             </ControlCard>
             
             <ControlCard>
