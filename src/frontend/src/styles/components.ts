@@ -16,9 +16,56 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: ${theme.colors.background};
+    background: ${theme.gradients.background};
     color: ${theme.colors.text};
     overflow-x: hidden;
+    position: relative;
+    
+    /* Add starry background effect */
+    &::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, ${theme.colors.star}, transparent),
+        radial-gradient(1px 1px at 80px 20px, ${theme.colors.white}, transparent),
+        radial-gradient(1px 1px at 140px 60px, ${theme.colors.star}, transparent),
+        radial-gradient(2px 2px at 200px 40px, ${theme.colors.accent}, transparent),
+        radial-gradient(1px 1px at 280px 80px, ${theme.colors.white}, transparent),
+        radial-gradient(1px 1px at 340px 30px, ${theme.colors.diamond}, transparent),
+        radial-gradient(1px 1px at 400px 70px, ${theme.colors.star}, transparent);
+      background-repeat: repeat;
+      background-size: 420px 120px;
+      opacity: 0.6;
+      z-index: -2;
+      pointer-events: none;
+      animation: starryNight 30s linear infinite;
+    }
+    
+    /* Add floating decorative elements */
+    &::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(3px 3px at 100px 100px, ${theme.colors.moon}, transparent),
+        radial-gradient(2px 2px at 300px 200px, ${theme.colors.diamond}, transparent);
+      background-repeat: no-repeat;
+      opacity: 0.4;
+      z-index: -1;
+      pointer-events: none;
+    }
+  }
+  
+  @keyframes starryNight {
+    from { background-position: 0 0; }
+    to { background-position: 420px 0; }
   }
 
   #root {
@@ -59,29 +106,8 @@ export const Container = styled.div`
   margin: 0 auto;
   padding: ${theme.spacing.md};
   min-height: 100vh;
-  background: ${theme.colors.background};
   position: relative;
-  
-  /* Add starry background effect */
-  &::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      radial-gradient(2px 2px at 20px 30px, #FFD700, transparent),
-      radial-gradient(2px 2px at 40px 70px, #FFB366, transparent),
-      radial-gradient(1px 1px at 90px 40px, #FFFFFF, transparent),
-      radial-gradient(1px 1px at 130px 80px, #4ECDC4, transparent),
-      radial-gradient(2px 2px at 160px 30px, #FF6B9D, transparent);
-    background-repeat: repeat;
-    background-size: 200px 100px;
-    opacity: 0.3;
-    z-index: -1;
-    pointer-events: none;
-  }
+  z-index: 1;
 `;
 
 export const Card = styled.div`

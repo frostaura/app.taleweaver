@@ -19,21 +19,21 @@ const Dashboard: React.FC = () => {
         <FeatureCard
           title="Privacy Policy"
           icon="🛡️"
-          gradient="primary"
+          variant="privacy"
           onClick={() => navigate('/privacy')}
         />
         
         <FeatureCard
-          title="Manage Children"
-          icon="👨‍👩‍👧‍👦"
-          gradient="primary"
+          title="Parental Controls"
+          icon="🔒"
+          variant="parental"
           onClick={() => navigate('/children-manager')}
         />
         
         <FeatureCard
           title="Quick Generate"
           icon="🪄"
-          gradient="accent"
+          variant="generate"
           onClick={() => navigate('/quick-generate')}
           showActionButtons
         />
@@ -41,7 +41,7 @@ const Dashboard: React.FC = () => {
         <FeatureCard
           title="Create Custom Story"
           icon="📚"
-          gradient="primary"
+          variant="custom"
           onClick={() => navigate('/custom-story')}
           showCharacterGrid
         />

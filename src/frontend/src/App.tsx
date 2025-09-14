@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { store } from './store';
 import { theme } from './styles/theme';
 import { GlobalStyle } from './styles/components';
+import BackgroundDecorations from './components/BackgroundDecorations';
 import Dashboard from './pages/Dashboard';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import ChildrenManager from './pages/ChildrenManager';
@@ -16,6 +17,7 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+        <BackgroundDecorations />
         <Router>
           <Routes>
             <Route path="/" element={<QuickGenerate />} />
