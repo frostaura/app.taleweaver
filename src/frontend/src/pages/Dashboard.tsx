@@ -24,10 +24,10 @@ const Dashboard: React.FC = () => {
         />
         
         <FeatureCard
-          title="Parental Controls"
-          icon="🔒"
+          title="Manage Children"
+          icon="👨‍👩‍👧‍👦"
           gradient="primary"
-          onClick={() => navigate('/parental-controls')}
+          onClick={() => navigate('/children-manager')}
         />
         
         <FeatureCard
