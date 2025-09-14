@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('TaleWeaver Visual Quality Assessment', () => {
-  test('Dashboard visual assessment', async ({ page }) => {
+  test('Homepage (Quick Generate) visual assessment', async ({ page }) => {
     await page.goto('/#/');
     
     // Wait for the page to load completely
@@ -10,14 +10,14 @@ test.describe('TaleWeaver Visual Quality Assessment', () => {
     
     // Take a full page screenshot
     await page.screenshot({ 
-      path: 'dashboard-desktop.png', 
+      path: 'homepage-desktop.png', 
       fullPage: true 
     });
     
-    console.log('Dashboard screenshot captured');
+    console.log('Homepage screenshot captured');
   });
 
-  test('Dashboard mobile visual assessment', async ({ page }) => {
+  test('Homepage (Quick Generate) mobile visual assessment', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 }); // iPhone X dimensions
     await page.goto('/#/');
     
@@ -27,11 +27,27 @@ test.describe('TaleWeaver Visual Quality Assessment', () => {
     
     // Take a full page screenshot
     await page.screenshot({ 
-      path: 'dashboard-mobile.png', 
+      path: 'homepage-mobile.png', 
       fullPage: true 
     });
     
-    console.log('Dashboard mobile screenshot captured');
+    console.log('Homepage mobile screenshot captured');
+  });
+
+  test('Dashboard menu visual assessment', async ({ page }) => {
+    await page.goto('/#/dashboard');
+    
+    // Wait for the page to load completely
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000); // Allow animations to complete
+    
+    // Take a full page screenshot
+    await page.screenshot({ 
+      path: 'dashboard-menu.png', 
+      fullPage: true 
+    });
+    
+    console.log('Dashboard menu screenshot captured');
   });
 
   test('Privacy Policy visual assessment', async ({ page }) => {

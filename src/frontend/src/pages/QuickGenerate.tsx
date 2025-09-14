@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Container, Title, Card, Button, Text, IconWrapper, Grid } from '../styles/components';
+import CircularMenu from '../components/CircularMenu';
 
-const BackButton = styled(Button)`
+const NavBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: ${props => props.theme.spacing.lg};
-  align-self: flex-start;
+  width: 100%;
+`;
+
+const StyledCircularMenu = styled(CircularMenu)`
+  /* Custom styling if needed */
+`;
+
+const AppTitle = styled(Title)`
+  margin: 0;
+  font-size: ${props => props.theme.fontSizes.lg};
 `;
 
 const ProfileSelector = styled.select`
@@ -59,7 +71,6 @@ const MagicWand = styled.div`
 `;
 
 const QuickGenerate: React.FC = () => {
-  const navigate = useNavigate();
   const [selectedProfile, setSelectedProfile] = useState('emma');
   const [selectedLength, setSelectedLength] = useState('medium');
   const [selectedVoice, setSelectedVoice] = useState('female');
@@ -93,9 +104,10 @@ const QuickGenerate: React.FC = () => {
 
   return (
     <Container>
-      <BackButton variant="secondary" onClick={() => navigate('/')}>
-        ← Back
-      </BackButton>
+      <NavBar>
+        <AppTitle>TaleWeaver</AppTitle>
+        <StyledCircularMenu />
+      </NavBar>
       
       <Card>
         <IconWrapper size="large">
