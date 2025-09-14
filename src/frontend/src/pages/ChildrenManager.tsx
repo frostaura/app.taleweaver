@@ -278,8 +278,8 @@ const ChildrenManager: React.FC = () => {
 
   return (
     <Container>
-      <BackButton variant="secondary" onClick={() => navigate('/parental-controls')}>
-        ← Back to Parental Controls
+      <BackButton variant="secondary" onClick={() => navigate('/')}>
+        ← Back to Dashboard
       </BackButton>
 
       <Card>
