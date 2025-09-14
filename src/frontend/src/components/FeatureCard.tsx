@@ -1,6 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, Subtitle, IconWrapper, Grid as BaseGrid } from '../styles/components';
+import { Card, Subtitle, Grid as BaseGrid } from '../styles/components';
+import { 
+  ShieldIcon, 
+  LockIcon, 
+  MagicWandIcon, 
+  BookIcon, 
+  RabbitIcon, 
+  HeartIcon, 
+  CatIcon, 
+  FlowerIcon, 
+  DinosaurIcon,
+  MoonIcon,
+  StarIcon,
+  DiamondIcon
+} from './Icons';
 
 interface FeatureCardProps {
   title: string;
@@ -48,25 +62,9 @@ const StyledCard = styled(Card).withConfig({
     position: absolute;
     top: ${props => props.theme.spacing.md};
     right: ${props => props.theme.spacing.md};
-    width: 8px;
-    height: 8px;
-    background: ${props => {
-      switch (props.variant) {
-        case 'privacy':
-          return props.theme.colors.star;
-        case 'parental':
-          return props.theme.colors.moon;
-        case 'generate':
-          return props.theme.colors.star;
-        case 'custom':
-          return props.theme.colors.diamond;
-        default:
-          return props.theme.colors.star;
-      }
-    }};
-    border-radius: ${props => props.variant === 'custom' ? '2px' : '50%'};
-    transform: ${props => props.variant === 'custom' ? 'rotate(45deg)' : 'none'};
-    opacity: 0.7;
+    width: 16px;
+    height: 16px;
+    background: transparent;
   }
 `;
 
@@ -204,6 +202,15 @@ const CharacterIcon = styled.div.withConfig({
   }
 `;
 
+const DecorationWrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['variant'].includes(prop),
+})<{ variant: 'privacy' | 'parental' | 'generate' | 'custom' }>`
+  position: absolute;
+  top: ${props => props.theme.spacing.md};
+  right: ${props => props.theme.spacing.md};
+  z-index: 1;
+`;
+
 const ProgressPlaceholder = styled.div`
   width: 100%;
   height: 12px;
@@ -253,16 +260,14 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
     if (variant === 'privacy') {
       return (
         <IconContainer variant={variant}>
-          <div style={{ position: 'relative', fontSize: '32px' }}>
-            🛡️
+          <div style={{ position: 'relative' }}>
+            <ShieldIcon size={48} />
             <div style={{ 
               position: 'absolute', 
-              top: '-8px', 
-              right: '-8px', 
-              fontSize: '16px',
-              color: '#FFD23F'
+              top: '-4px', 
+              right: '-4px'
             }}>
-              ⭐
+              <StarIcon size={12} />
             </div>
           </div>
         </IconContainer>
@@ -272,23 +277,22 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
     if (variant === 'parental') {
       return (
         <IconContainer variant={variant}>
-          <span style={{ fontSize: '40px' }}>🔒</span>
+          <LockIcon size={48} />
         </IconContainer>
       );
     }
     
     if (variant === 'generate') {
       return (
-        <div style={{ position: 'relative', fontSize: '64px', margin: '16px 0' }}>
-          🪄
+        <div style={{ position: 'relative', margin: '16px 0' }}>
+          <MagicWandIcon size={64} />
           <div style={{ 
             position: 'absolute', 
-            top: '-10px', 
-            right: '-10px', 
-            fontSize: '16px',
+            top: '-8px', 
+            right: '-8px', 
             animation: 'sparkle 2s ease-in-out infinite'
           }}>
-            ✨
+            <StarIcon size={16} />
           </div>
         </div>
       );
@@ -296,13 +300,21 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
     
     return (
       <IconContainer variant={variant}>
-        <span style={{ fontSize: '40px' }}>{icon}</span>
+        <BookIcon size={48} />
       </IconContainer>
     );
   };
 
   return (
     <StyledCard variant={variant} onClick={onClick}>
+      {/* Decorative elements */}
+      <DecorationWrapper variant={variant}>
+        {variant === 'privacy' && <StarIcon size={12} />}
+        {variant === 'parental' && <MoonIcon size={16} />}
+        {variant === 'generate' && <StarIcon size={12} />}
+        {variant === 'custom' && <DiamondIcon size={8} />}
+      </DecorationWrapper>
+      
       <ContentArea>
         {renderIcon()}
         <Subtitle style={{ marginBottom: '12px', fontSize: '18px' }}>{title}</Subtitle>
@@ -345,17 +357,29 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
       
       {showActionButtons && (
         <ActionButtonsGrid>
-          <ActionButton color="#FF6B9D">🐰</ActionButton>
-          <ActionButton color="#4A3F6A">📖</ActionButton>
-          <ActionButton color="#FF8E53">❤️</ActionButton>
+          <ActionButton color="#FF6B9D">
+            <RabbitIcon size={20} />
+          </ActionButton>
+          <ActionButton color="#4A3F6A">
+            <BookIcon size={20} />
+          </ActionButton>
+          <ActionButton color="#FF8E53">
+            <HeartIcon size={20} />
+          </ActionButton>
         </ActionButtonsGrid>
       )}
       
       {showCharacterGrid && (
         <CharacterGrid>
-          <CharacterIcon bgColor="#FF8E53">🐱</CharacterIcon>
-          <CharacterIcon bgColor="#5B8FDF">🌸</CharacterIcon>
-          <CharacterIcon bgColor="#9B8CE8">🦕</CharacterIcon>
+          <CharacterIcon bgColor="#FF8E53">
+            <CatIcon size={24} />
+          </CharacterIcon>
+          <CharacterIcon bgColor="#5B8FDF">
+            <FlowerIcon size={24} />
+          </CharacterIcon>
+          <CharacterIcon bgColor="#9B8CE8">
+            <DinosaurIcon size={24} />
+          </CharacterIcon>
           <CharacterIcon bgColor="rgba(255, 255, 255, 0.1)">
             <ProgressPlaceholder />
           </CharacterIcon>
