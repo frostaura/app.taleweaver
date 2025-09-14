@@ -2,6 +2,8 @@ export interface ChildProfile {
   id: string;
   name: string;
   age: number;
+  gender: 'male' | 'female' | 'non-binary';
+  customRestrictions?: string; // Free text for LLM interpretation
   defaultSettings: StorySettings;
   contentFilters: ContentFilters;
   createdAt: Date;
