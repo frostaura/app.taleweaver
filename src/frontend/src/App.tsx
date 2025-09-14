@@ -18,7 +18,8 @@ function App() {
         <GlobalStyle />
         <Router>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<QuickGenerate />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/parental-controls" element={<ParentalControls />} />
             <Route path="/quick-generate" element={<QuickGenerate />} />

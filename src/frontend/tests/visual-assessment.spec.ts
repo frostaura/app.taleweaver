@@ -1,8 +1,41 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('TaleWeaver Visual Quality Assessment', () => {
-  test('Dashboard visual assessment', async ({ page }) => {
+  test('Home Page (Quick Generate) visual assessment', async ({ page }) => {
     await page.goto('/#/');
+    
+    // Wait for the page to load completely
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000); // Allow animations to complete
+    
+    // Take a full page screenshot
+    await page.screenshot({ 
+      path: 'homepage-desktop.png', 
+      fullPage: true 
+    });
+    
+    console.log('Home page screenshot captured');
+  });
+
+  test('Home Page (Quick Generate) mobile visual assessment', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 }); // iPhone X dimensions
+    await page.goto('/#/');
+    
+    // Wait for the page to load completely
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000); // Allow animations to complete
+    
+    // Take a full page screenshot
+    await page.screenshot({ 
+      path: 'homepage-mobile.png', 
+      fullPage: true 
+    });
+    
+    console.log('Home page mobile screenshot captured');
+  });
+
+  test('Dashboard visual assessment', async ({ page }) => {
+    await page.goto('/#/dashboard');
     
     // Wait for the page to load completely
     await page.waitForLoadState('networkidle');
@@ -15,23 +48,6 @@ test.describe('TaleWeaver Visual Quality Assessment', () => {
     });
     
     console.log('Dashboard screenshot captured');
-  });
-
-  test('Dashboard mobile visual assessment', async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 812 }); // iPhone X dimensions
-    await page.goto('/#/');
-    
-    // Wait for the page to load completely
-    await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(2000); // Allow animations to complete
-    
-    // Take a full page screenshot
-    await page.screenshot({ 
-      path: 'dashboard-mobile.png', 
-      fullPage: true 
-    });
-    
-    console.log('Dashboard mobile screenshot captured');
   });
 
   test('Privacy Policy visual assessment', async ({ page }) => {

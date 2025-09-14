@@ -3,9 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Container, Title, Card, Button, Text, IconWrapper, Grid } from '../styles/components';
 
-const BackButton = styled(Button)`
+const NavigationBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: ${props => props.theme.spacing.lg};
-  align-self: flex-start;
+  padding: ${props => props.theme.spacing.md};
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: ${props => props.theme.borderRadius.medium};
+  backdrop-filter: blur(10px);
+`;
+
+const NavButton = styled(Button)`
+  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
+  font-size: ${props => props.theme.fontSizes.sm};
+  margin: 0 ${props => props.theme.spacing.xs};
 `;
 
 const ProfileSelector = styled.select`
@@ -93,9 +105,23 @@ const QuickGenerate: React.FC = () => {
 
   return (
     <Container>
-      <BackButton variant="secondary" onClick={() => navigate('/')}>
-        ← Back
-      </BackButton>
+      <NavigationBar>
+        <Title style={{ margin: 0, fontSize: '1.5rem' }}>TaleWeaver</Title>
+        <div>
+          <NavButton variant="secondary" onClick={() => navigate('/dashboard')}>
+            📊 Dashboard
+          </NavButton>
+          <NavButton variant="secondary" onClick={() => navigate('/privacy')}>
+            🛡️ Privacy
+          </NavButton>
+          <NavButton variant="secondary" onClick={() => navigate('/parental-controls')}>
+            🔒 Controls
+          </NavButton>
+          <NavButton variant="secondary" onClick={() => navigate('/custom-story')}>
+            📚 Custom Story
+          </NavButton>
+        </div>
+      </NavigationBar>
       
       <Card>
         <IconWrapper size="large">
