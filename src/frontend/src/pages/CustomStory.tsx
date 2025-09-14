@@ -12,7 +12,9 @@ const StepCard = styled(Card)`
   margin-bottom: ${props => props.theme.spacing.md};
 `;
 
-const CharacterOption = styled.div<{ isSelected: boolean }>`
+const CharacterOption = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['isSelected'].includes(prop),
+})<{ isSelected: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,18 +24,33 @@ const CharacterOption = styled.div<{ isSelected: boolean }>`
   cursor: pointer;
   transition: all 0.3s ease;
   border: 2px solid ${props => props.isSelected ? '#FFB366' : 'transparent'};
+  position: relative;
   
   &:hover {
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-color: ${props => props.isSelected ? '#FFB366' : 'rgba(255, 255, 255, 0.3)'};
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 179, 102, 0.3);
   }
 `;
 
 const CharacterIcon = styled.div`
   font-size: 32px;
   margin-bottom: ${props => props.theme.spacing.sm};
+  transition: transform 0.2s ease;
+  
+  .character-option:hover & {
+    transform: scale(1.1);
+  }
 `;
 
-const ThemeOption = styled.div<{ isSelected: boolean }>`
+const ThemeOption = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['isSelected'].includes(prop),
+})<{ isSelected: boolean }>`
   padding: ${props => props.theme.spacing.md};
   border-radius: ${props => props.theme.borderRadius.medium};
   background: ${props => props.isSelected ? props.theme.gradients.pink : 'rgba(255, 255, 255, 0.1)'};
@@ -41,9 +58,17 @@ const ThemeOption = styled.div<{ isSelected: boolean }>`
   transition: all 0.3s ease;
   border: 2px solid ${props => props.isSelected ? '#FF6B9D' : 'transparent'};
   text-align: center;
+  position: relative;
   
   &:hover {
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-color: ${props => props.isSelected ? '#FF6B9D' : 'rgba(255, 255, 255, 0.3)'};
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.3);
   }
 `;
 
@@ -56,6 +81,7 @@ const InputField = styled.input`
   color: white;
   font-size: ${props => props.theme.fontSizes.md};
   margin-bottom: ${props => props.theme.spacing.md};
+  transition: all 0.3s ease;
   
   &::placeholder {
     color: rgba(255, 255, 255, 0.5);
@@ -64,6 +90,12 @@ const InputField = styled.input`
   &:focus {
     border-color: #FFB366;
     outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 179, 102, 0.2);
+    background: rgba(255, 255, 255, 0.15);
+  }
+  
+  &:valid {
+    border-color: #4ECDC4;
   }
 `;
 
@@ -74,12 +106,27 @@ const ProgressDots = styled.div`
   margin: ${props => props.theme.spacing.lg} 0;
 `;
 
-const Dot = styled.div<{ isActive: boolean }>`
-  width: 12px;
-  height: 12px;
+const Dot = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['isActive'].includes(prop),
+})<{ isActive: boolean }>`
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: ${props => props.isActive ? props.theme.colors.accent : 'rgba(255, 255, 255, 0.3)'};
   transition: all 0.3s ease;
+  position: relative;
+  
+  ${props => props.isActive && `
+    box-shadow: 0 0 0 4px rgba(255, 179, 102, 0.3);
+  `}
+`;
+
+const StepTitle = styled.div`
+  text-align: center;
+  margin-bottom: ${props => props.theme.spacing.md};
+  color: ${props => props.theme.colors.accent};
+  font-size: ${props => props.theme.fontSizes.sm};
+  font-weight: ${props => props.theme.fontWeights.semibold};
 `;
 
 const CustomStory: React.FC = () => {
@@ -260,6 +307,15 @@ const CustomStory: React.FC = () => {
       <IconWrapper size="large">
         <span style={{ fontSize: '48px' }}>📚</span>
       </IconWrapper>
+      
+      <StepTitle>
+        Step {currentStep} of 4: {
+          currentStep === 1 ? "Child's Name" :
+          currentStep === 2 ? "Choose Characters" :
+          currentStep === 3 ? "Select Setting" :
+          "Educational Topics"
+        }
+      </StepTitle>
       
       <ProgressDots>
         {[1, 2, 3, 4].map(step => (

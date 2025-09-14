@@ -12,7 +12,9 @@ const ControlCard = styled(Card)`
   margin-bottom: ${props => props.theme.spacing.md};
 `;
 
-const Toggle = styled.div<{ isOn: boolean }>`
+const Toggle = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['isOn'].includes(prop),
+})<{ isOn: boolean }>`
   width: 60px;
   height: 32px;
   border-radius: 16px;
@@ -41,7 +43,9 @@ const ControlRow = styled.div`
   margin-bottom: ${props => props.theme.spacing.md};
 `;
 
-const ProfileCard = styled.div<{ isActive: boolean }>`
+const ProfileCard = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['isActive'].includes(prop),
+})<{ isActive: boolean }>`
   padding: ${props => props.theme.spacing.md};
   border-radius: ${props => props.theme.borderRadius.medium};
   background: ${props => props.isActive ? props.theme.gradients.accent : 'rgba(255, 255, 255, 0.1)'};

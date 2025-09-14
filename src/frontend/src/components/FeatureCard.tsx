@@ -11,7 +11,9 @@ interface FeatureCardProps {
   showCharacterGrid?: boolean;
 }
 
-const StyledCard = styled(Card)<{ gradient: 'primary' | 'accent' }>`
+const StyledCard = styled(Card).withConfig({
+  shouldForwardProp: (prop) => !['gradient'].includes(prop),
+})<{ gradient: 'primary' | 'accent' }>`
   cursor: pointer;
   transition: transform 0.3s ease;
   min-height: 200px;
@@ -45,7 +47,9 @@ const ActionButtonsGrid = styled(BaseGrid)`
   gap: ${props => props.theme.spacing.sm};
 `;
 
-const ActionButton = styled.div<{ color: string }>`
+const ActionButton = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['color'].includes(prop),
+})<{ color: string }>`
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -69,7 +73,9 @@ const CharacterGrid = styled(BaseGrid)`
   gap: ${props => props.theme.spacing.sm};
 `;
 
-const CharacterIcon = styled.div<{ bgColor: string }>`
+const CharacterIcon = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['bgColor'].includes(prop),
+})<{ bgColor: string }>`
   width: 48px;
   height: 48px;
   border-radius: ${props => props.theme.borderRadius.medium};

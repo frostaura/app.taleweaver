@@ -105,7 +105,9 @@ export const Card = styled.div`
   }
 `;
 
-export const Button = styled.button<{ variant?: 'primary' | 'secondary' | 'accent' }>`
+export const Button = styled.button.withConfig({
+  shouldForwardProp: (prop) => !['variant'].includes(prop),
+})<{ variant?: 'primary' | 'secondary' | 'accent' }>`
   padding: ${theme.spacing.md} ${theme.spacing.lg};
   border-radius: ${theme.borderRadius.large};
   font-size: ${theme.fontSizes.md};
@@ -113,6 +115,8 @@ export const Button = styled.button<{ variant?: 'primary' | 'secondary' | 'accen
   color: ${theme.colors.white};
   transition: all 0.3s ease;
   box-shadow: ${theme.shadows.button};
+  position: relative;
+  overflow: hidden;
   
   background: ${props => {
     switch (props.variant) {
@@ -125,19 +129,47 @@ export const Button = styled.button<{ variant?: 'primary' | 'secondary' | 'accen
     }
   }};
   
-  &:hover {
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 179, 102, 0.4);
+  }
+  
+  &:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   }
   
-  &:active {
+  &:active:not(:disabled) {
     transform: translateY(0);
   }
   
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
     transform: none;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+  }
+  
+  /* Loading indicator for disabled state */
+  &:disabled::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: button-loading 1s linear infinite;
+  }
+  
+  @keyframes button-loading {
+    to {
+      transform: rotate(360deg);
+    }
   }
 `;
 
@@ -159,7 +191,9 @@ export const Subtitle = styled.h2`
   margin-bottom: ${theme.spacing.md};
 `;
 
-export const IconWrapper = styled.div<{ size?: 'small' | 'medium' | 'large' }>`
+export const IconWrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['size'].includes(prop),
+})<{ size?: 'small' | 'medium' | 'large' }>`
   width: ${props => {
     switch (props.size) {
       case 'small': return '32px';
@@ -186,7 +220,9 @@ export const IconWrapper = styled.div<{ size?: 'small' | 'medium' | 'large' }>`
   }
 `;
 
-export const Grid = styled.div<{ columns?: number; gap?: string }>`
+export const Grid = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['columns', 'gap'].includes(prop),
+})<{ columns?: number; gap?: string }>`
   display: grid;
   grid-template-columns: repeat(${props => props.columns || 2}, 1fr);
   gap: ${props => props.gap || theme.spacing.md};
@@ -206,7 +242,9 @@ export const FlexRow = styled.div`
   gap: ${theme.spacing.sm};
 `;
 
-export const Text = styled.p<{ size?: 'sm' | 'md' | 'lg'; color?: string }>`
+export const Text = styled.p.withConfig({
+  shouldForwardProp: (prop) => !['size', 'color'].includes(prop),
+})<{ size?: 'sm' | 'md' | 'lg'; color?: string }>`
   font-size: ${props => theme.fontSizes[props.size || 'md']};
   color: ${props => props.color || theme.colors.text};
   line-height: 1.5;

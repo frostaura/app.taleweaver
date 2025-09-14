@@ -24,7 +24,9 @@ const ProfileSelector = styled.select`
   }
 `;
 
-const QuickOption = styled.div<{ isSelected: boolean }>`
+const QuickOption = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['isSelected'].includes(prop),
+})<{ isSelected: boolean }>`
   padding: ${props => props.theme.spacing.md};
   border-radius: ${props => props.theme.borderRadius.medium};
   background: ${props => props.isSelected ? props.theme.gradients.accent : 'rgba(255, 255, 255, 0.1)'};
