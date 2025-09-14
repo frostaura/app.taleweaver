@@ -211,7 +211,7 @@ export const IconWrapper = styled.div.withConfig({
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: ${theme.spacing.md};
+  margin: 0 auto ${theme.spacing.md} auto;
   
   svg, img {
     width: 100%;
