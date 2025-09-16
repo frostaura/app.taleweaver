@@ -248,6 +248,29 @@ const ProgressPlaceholder = styled.div`
   }
 `;
 
+const ToggleSwitch = styled.div`
+  width: 80%;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  position: relative;
+  margin: ${props => props.theme.spacing.md} auto;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    background: ${props => props.theme.colors.accent};
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+`;
+
 const FeatureCard: React.FC<FeatureCardProps> = ({
   title,
   icon,
@@ -322,7 +345,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
         {variant === 'generate' && <GenerateButton>Generate Story</GenerateButton>}
         
         {/* Add content lines for privacy and parental cards */}
-        {(variant === 'privacy' || variant === 'parental') && (
+        {variant === 'privacy' && (
           <div style={{ width: '100%', marginTop: '16px' }}>
             <div style={{ 
               width: '100%', 
@@ -351,6 +374,26 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
               background: 'rgba(255, 255, 255, 0.15)', 
               borderRadius: '3px'
             }} />
+          </div>
+        )}
+        
+        {variant === 'parental' && (
+          <div style={{ width: '100%', marginTop: '16px' }}>
+            <div style={{ 
+              width: '100%', 
+              height: '6px', 
+              background: 'rgba(255, 255, 255, 0.15)', 
+              borderRadius: '3px',
+              marginBottom: '8px'
+            }} />
+            <div style={{ 
+              width: '80%', 
+              height: '6px', 
+              background: 'rgba(255, 255, 255, 0.15)', 
+              borderRadius: '3px',
+              marginBottom: '12px'
+            }} />
+            <ToggleSwitch />
           </div>
         )}
       </ContentArea>
