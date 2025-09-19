@@ -20,7 +20,7 @@ function App() {
         <BackgroundDecorations />
         <Router>
           <Routes>
-            <Route path="/" element={<QuickGenerate />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/children-manager" element={<ChildrenManager />} />
