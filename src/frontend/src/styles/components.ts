@@ -10,15 +10,17 @@ export const GlobalStyle = createGlobalStyle`
 
   html, body {
     height: 100%;
+    height: 100dvh; /* Use dynamic viewport height for iOS Safari */
     font-family: ${theme.fonts.primary};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow: hidden; /* Prevent scrolling on iOS */
   }
 
   body {
     background: ${theme.gradients.background};
     color: ${theme.colors.text};
-    overflow-x: hidden;
+    overflow: hidden; /* Prevent any scrolling */
     position: relative;
     
     /* Add starry background effect */
@@ -70,7 +72,8 @@ export const GlobalStyle = createGlobalStyle`
 
   #root {
     height: 100%;
-    min-height: 100vh;
+    height: 100dvh; /* Use dynamic viewport height for iOS Safari */
+    min-height: 100vh; /* Fallback for older browsers */
   }
 
   button {
@@ -105,9 +108,13 @@ export const Container = styled.div`
   max-width: 480px;
   margin: 0 auto;
   padding: ${theme.spacing.md};
-  min-height: 100vh;
+  height: 100dvh; /* Use dynamic viewport height for iOS Safari */
+  min-height: 100vh; /* Fallback for older browsers */
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export const Card = styled.div`
