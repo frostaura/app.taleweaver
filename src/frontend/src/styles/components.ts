@@ -9,18 +9,24 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html, body {
-    height: 100%;
-    height: 100dvh; /* Use dynamic viewport height for iOS Safari */
+    min-height: 100%;
+    min-height: 100dvh; /* Use dynamic viewport height for iOS Safari */
     font-family: ${theme.fonts.primary};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow: hidden; /* Prevent scrolling on iOS */
+    /* Allow scrolling when content overflows due to iOS keyboard */
+    overflow: auto;
+    /* iOS-specific: Prevent bounce scrolling */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
   }
 
   body {
     background: ${theme.gradients.background};
     color: ${theme.colors.text};
-    overflow: hidden; /* Prevent any scrolling */
+    /* Allow vertical scrolling on iOS when keyboard appears */
+    overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
     
     /* Add starry background effect */
@@ -71,8 +77,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   #root {
-    height: 100%;
-    height: 100dvh; /* Use dynamic viewport height for iOS Safari */
+    min-height: 100%;
+    min-height: 100dvh; /* Use dynamic viewport height for iOS Safari */
     min-height: 100vh; /* Fallback for older browsers */
   }
 
@@ -108,13 +114,23 @@ export const Container = styled.div`
   max-width: 480px;
   margin: 0 auto;
   padding: ${theme.spacing.md};
-  height: 100dvh; /* Use dynamic viewport height for iOS Safari */
+  min-height: 100dvh; /* Use dynamic viewport height for iOS Safari */
   min-height: 100vh; /* Fallback for older browsers */
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  
+  /* iOS-specific: Handle keyboard appearance gracefully */
+  @supports (-webkit-touch-callout: none) {
+    /* Only on iOS Safari */
+    @media screen and (max-height: 600px) {
+      /* When viewport is short (likely keyboard is showing) */
+      justify-content: flex-start;
+      padding-top: ${theme.spacing.lg};
+    }
+  }
 `;
 
 export const Card = styled.div`
