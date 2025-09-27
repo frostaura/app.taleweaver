@@ -120,7 +120,7 @@ export const Container = styled.div`
   z-index: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   
   /* iOS-specific: Handle keyboard appearance gracefully */
   @supports (-webkit-touch-callout: none) {
