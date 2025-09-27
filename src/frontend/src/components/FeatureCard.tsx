@@ -396,6 +396,31 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
             <ToggleSwitch />
           </div>
         )}
+        
+        {variant === 'custom' && (
+          <div style={{ width: '100%', marginTop: '16px' }}>
+            <div style={{ 
+              width: '85%', 
+              height: '6px', 
+              background: 'rgba(255, 255, 255, 0.15)', 
+              borderRadius: '3px',
+              marginBottom: '8px'
+            }} />
+            <div style={{ 
+              width: '95%', 
+              height: '6px', 
+              background: 'rgba(255, 255, 255, 0.15)', 
+              borderRadius: '3px',
+              marginBottom: '8px'
+            }} />
+            <div style={{ 
+              width: '70%', 
+              height: '6px', 
+              background: 'rgba(255, 255, 255, 0.15)', 
+              borderRadius: '3px'
+            }} />
+          </div>
+        )}
       </ContentArea>
       
       {showActionButtons && (

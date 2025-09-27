@@ -35,7 +35,6 @@ const Dashboard: React.FC = () => {
           icon="🪄"
           variant="generate"
           onClick={() => navigate('/quick-generate')}
-          showActionButtons
         />
         
         <FeatureCard
@@ -43,7 +42,6 @@ const Dashboard: React.FC = () => {
           icon="📚"
           variant="custom"
           onClick={() => navigate('/custom-story')}
-          showCharacterGrid
         />
       </StyledGrid>
     </Container>
