@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { globalStyles } from '../styles/components';
 import { theme } from '../styles/theme';
 import { 
@@ -25,6 +26,21 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   variant,
   onPress
 }) => {
+  const getGradientColors = () => {
+    switch (variant) {
+      case 'privacy':
+        return theme.gradients.shield;
+      case 'parental':
+        return theme.gradients.lockGradient;
+      case 'generate':
+        return theme.gradients.accent;
+      case 'custom':
+        return theme.gradients.card;
+      default:
+        return theme.gradients.card;
+    }
+  };
+
   const renderIcon = () => {
     switch (variant) {
       case 'privacy':
@@ -82,9 +98,14 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
         <View style={styles.contentLines}>
           <View style={[styles.contentLine, { width: '100%' }]} />
           <View style={[styles.contentLine, { width: '80%' }]} />
-          <View style={styles.toggleSwitch}>
+          <LinearGradient
+            colors={theme.gradients.accent}
+            style={styles.toggleSwitch}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+          >
             <View style={styles.toggleKnob} />
-          </View>
+          </LinearGradient>
         </View>
       );
     }
@@ -104,33 +125,51 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
 
   return (
     <TouchableOpacity 
-      style={[globalStyles.card, styles.card]} 
+      style={styles.cardContainer} 
       onPress={onPress}
       activeOpacity={0.8}
     >
-      {/* Decoration icon */}
-      <View style={styles.decorationWrapper}>
-        {renderDecorationIcon()}
-      </View>
-      
-      {/* Main content */}
-      <View style={styles.contentArea}>
-        <View style={globalStyles.iconWrapper}>
-          {renderIcon()}
+      <LinearGradient
+        colors={theme.gradients.card}
+        style={[globalStyles.card, styles.card]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        {/* Decoration icon */}
+        <View style={styles.decorationWrapper}>
+          {renderDecorationIcon()}
         </View>
         
-        <Text style={[globalStyles.subtitle, { fontSize: 18 }]}>{title}</Text>
-        
-        {renderContentLines()}
-      </View>
+        {/* Main content */}
+        <View style={styles.contentArea}>
+          <LinearGradient
+            colors={getGradientColors()}
+            style={globalStyles.iconWrapper}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+          >
+            {renderIcon()}
+          </LinearGradient>
+          
+          <Text style={[globalStyles.subtitle, { fontSize: 18 }]}>{title}</Text>
+          
+          {renderContentLines()}
+        </View>
+      </LinearGradient>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
+  cardContainer: {
+    borderRadius: theme.borderRadius.large,
+    ...theme.shadows.card,
+  },
+  
   card: {
     minHeight: 220,
     position: 'relative',
+    backgroundColor: 'transparent',
   },
   
   decorationWrapper: {
@@ -162,7 +201,6 @@ const styles = StyleSheet.create({
   toggleSwitch: {
     width: '80%',
     height: 24,
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
     borderRadius: 12,
     alignSelf: 'center',
     marginTop: theme.spacing.sm,
@@ -174,7 +212,7 @@ const styles = StyleSheet.create({
   toggleKnob: {
     width: 16,
     height: 16,
-    backgroundColor: theme.colors.accent,
+    backgroundColor: theme.colors.white,
     borderRadius: 8,
   },
 });

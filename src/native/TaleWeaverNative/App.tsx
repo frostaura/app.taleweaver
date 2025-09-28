@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Constants from 'expo-constants';
+import * as SplashScreen from 'expo-splash-screen';
 
 import { store } from './src/store';
 import { theme } from './src/styles/theme';
@@ -15,23 +17,66 @@ import CustomStory from './src/pages/CustomStory';
 
 const Stack = createStackNavigator();
 
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
+  React.useEffect(() => {
+    // Hide splash screen after a short delay
+    const hideSplashScreen = async () => {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      await SplashScreen.hideAsync();
+    };
+    
+    hideSplashScreen();
+  }, []);
+
   return (
     <SafeAreaProvider>
       <Provider store={store}>
         <NavigationContainer>
-          <StatusBar style="light" backgroundColor={theme.colors.primary} />
+          <StatusBar 
+            style="light" 
+            backgroundColor={theme.colors.primary}
+            translucent={false}
+          />
           <Stack.Navigator
             screenOptions={{
               headerShown: false,
               cardStyle: { backgroundColor: theme.colors.background },
+              cardStyleInterpolator: ({ current }) => ({
+                cardStyle: {
+                  opacity: current.progress,
+                },
+              }),
             }}
+            initialRouteName="Dashboard"
           >
-            <Stack.Screen name="Dashboard" component={Dashboard} />
-            <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
-            <Stack.Screen name="ChildrenManager" component={ChildrenManager} />
-            <Stack.Screen name="QuickGenerate" component={QuickGenerate} />
-            <Stack.Screen name="CustomStory" component={CustomStory} />
+            <Stack.Screen 
+              name="Dashboard" 
+              component={Dashboard}
+              options={{ title: 'TaleWeaver' }}
+            />
+            <Stack.Screen 
+              name="PrivacyPolicy" 
+              component={PrivacyPolicy}
+              options={{ title: 'Privacy Policy' }}
+            />
+            <Stack.Screen 
+              name="ChildrenManager" 
+              component={ChildrenManager}
+              options={{ title: 'Parental Controls' }}
+            />
+            <Stack.Screen 
+              name="QuickGenerate" 
+              component={QuickGenerate}
+              options={{ title: 'Quick Generate' }}
+            />
+            <Stack.Screen 
+              name="CustomStory" 
+              component={CustomStory}
+              options={{ title: 'Custom Story' }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
