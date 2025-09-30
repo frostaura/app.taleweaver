@@ -38,6 +38,12 @@ const MagicWand = styled.div`
   }
 `;
 
+const ChildFriendlyText = styled(Text)`
+  font-family: ${props => props.theme.fonts.childFriendly};
+  font-weight: ${props => props.theme.fontWeights.semibold};
+  letter-spacing: 0.3px;
+`;
+
 const QuickGenerate: React.FC = () => {
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -64,9 +70,9 @@ const QuickGenerate: React.FC = () => {
         
         <Title>Quick Generate</Title>
         
-        <Text style={{ textAlign: 'center', marginBottom: '32px' }}>
+        <ChildFriendlyText style={{ textAlign: 'center', marginBottom: '32px' }}>
           Generate a magical story with one click
-        </Text>
+        </ChildFriendlyText>
         
         <GenerateButton 
           variant="accent"

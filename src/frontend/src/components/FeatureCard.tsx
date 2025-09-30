@@ -222,6 +222,24 @@ const ProgressPlaceholder = styled.div`
   }
 `;
 
+const CardTitle = styled(Subtitle).withConfig({
+  shouldForwardProp: (prop) => !['variant'].includes(prop),
+})<{ variant: 'privacy' | 'parental' | 'generate' | 'custom' }>`
+  margin-bottom: 12px;
+  font-size: ${props => props.variant === 'generate' || props.variant === 'custom' ? '18px' : '16px'};
+  font-family: ${props => 
+    props.variant === 'generate' || props.variant === 'custom' 
+      ? props.theme.fonts.childFriendly 
+      : props.theme.fonts.parentFriendly
+  };
+  font-weight: ${props => 
+    props.variant === 'generate' || props.variant === 'custom' 
+      ? props.theme.fontWeights.bold 
+      : props.theme.fontWeights.semibold
+  };
+  letter-spacing: ${props => props.variant === 'generate' || props.variant === 'custom' ? '0.5px' : '0'};
+`;
+
 const FeatureCard: React.FC<FeatureCardProps> = ({
   title,
   icon,
@@ -291,7 +309,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
       
       <ContentArea>
         {renderIcon()}
-        <Subtitle style={{ marginBottom: '12px', fontSize: '18px' }}>{title}</Subtitle>
+        <CardTitle variant={variant}>{title}</CardTitle>
         
 
         

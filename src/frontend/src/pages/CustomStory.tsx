@@ -48,6 +48,12 @@ const CharacterIcon = styled.div`
   }
 `;
 
+const ChildFriendlyText = styled(Text)`
+  font-family: ${props => props.theme.fonts.childFriendly};
+  font-weight: ${props => props.theme.fontWeights.semibold};
+  letter-spacing: 0.3px;
+`;
+
 const ThemeOption = styled.div.withConfig({
   shouldForwardProp: (prop) => !['isSelected'].includes(prop),
 })<{ isSelected: boolean }>`

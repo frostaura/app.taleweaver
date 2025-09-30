@@ -75,7 +75,9 @@ export const theme = {
   },
   fonts: {
     primary: 'System',
-    heading: 'System'
+    heading: 'System',
+    childFriendly: 'System', // Rounded, playful for child-facing content
+    parentFriendly: 'System', // Clean sans-serif for parent/legal content
   },
   fontSizes: {
     xs: 12,

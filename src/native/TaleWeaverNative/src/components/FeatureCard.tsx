@@ -41,6 +41,23 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
     }
   };
 
+  const getTitleStyle = () => {
+    // Child-facing flows get more playful styling
+    if (variant === 'generate' || variant === 'custom') {
+      return {
+        fontSize: 18,
+        fontWeight: theme.fontWeights.bold as any,
+        letterSpacing: 0.5,
+      };
+    }
+    // Parent/legal flows get clean, professional styling
+    return {
+      fontSize: 16,
+      fontWeight: theme.fontWeights.semibold as any,
+      letterSpacing: 0,
+    };
+  };
+
   const renderIcon = () => {
     switch (variant) {
       case 'privacy':
@@ -144,7 +161,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
             {renderIcon()}
           </LinearGradient>
           
-          <Text style={[globalStyles.subtitle, { fontSize: 18 }]}>{title}</Text>
+          <Text style={[globalStyles.subtitle, getTitleStyle()]}>{title}</Text>
           
           {renderContentLines()}
         </View>

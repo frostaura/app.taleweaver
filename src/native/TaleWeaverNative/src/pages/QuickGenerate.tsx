@@ -143,9 +143,10 @@ const styles = StyleSheet.create({
   
   sectionTitle: {
     fontSize: theme.fontSizes.lg,
-    fontWeight: theme.fontWeights.semibold,
+    fontWeight: theme.fontWeights.bold,
     marginBottom: theme.spacing.md,
     textAlign: 'center',
+    letterSpacing: 0.5,
   },
   
   selectionGrid: {
