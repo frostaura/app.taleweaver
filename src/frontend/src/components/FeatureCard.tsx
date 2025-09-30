@@ -222,29 +222,6 @@ const ProgressPlaceholder = styled.div`
   }
 `;
 
-const ToggleSwitch = styled.div`
-  width: 80%;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  position: relative;
-  margin: ${props => props.theme.spacing.md} auto;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    width: 16px;
-    height: 16px;
-    background: ${props => props.theme.colors.accent};
-    border-radius: 50%;
-    transition: all 0.3s ease;
-  }
-`;
-
 const FeatureCard: React.FC<FeatureCardProps> = ({
   title,
   icon,
@@ -390,9 +367,14 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
               height: '6px', 
               background: 'rgba(255, 255, 255, 0.15)', 
               borderRadius: '3px',
-              marginBottom: '12px'
+              marginBottom: '8px'
             }} />
-            <ToggleSwitch />
+            <div style={{ 
+              width: '90%', 
+              height: '6px', 
+              background: 'rgba(255, 255, 255, 0.15)', 
+              borderRadius: '3px'
+            }} />
           </div>
         )}
         

@@ -23,16 +23,28 @@ const Dashboard: React.FC<DashboardProps> = ({ navigation }) => {
       >
         <Text style={globalStyles.title}>TaleWeaver</Text>
         
+        {/* Primary Action - Quick Generate (Full Width) */}
+        <View style={styles.primaryCard}>
+          <FeatureCard
+            title="Quick Generate"
+            icon="🪄"
+            variant="generate"
+            onPress={() => navigation.navigate('QuickGenerate')}
+          />
+        </View>
+        
+        {/* Secondary Action - Custom Story (Full Width) */}
+        <View style={styles.secondaryCard}>
+          <FeatureCard
+            title="Create Custom Story"
+            icon="📚"
+            variant="custom"
+            onPress={() => navigation.navigate('CustomStory')}
+          />
+        </View>
+        
+        {/* Parent/Legal Cards (2 Column Grid) */}
         <View style={globalStyles.grid}>
-          <View style={globalStyles.gridItem}>
-            <FeatureCard
-              title="Privacy Policy"
-              icon="🛡️"
-              variant="privacy"
-              onPress={() => navigation.navigate('PrivacyPolicy')}
-            />
-          </View>
-          
           <View style={globalStyles.gridItem}>
             <FeatureCard
               title="Parental Controls"
@@ -44,19 +56,10 @@ const Dashboard: React.FC<DashboardProps> = ({ navigation }) => {
           
           <View style={globalStyles.gridItem}>
             <FeatureCard
-              title="Quick Generate"
-              icon="🪄"
-              variant="generate"
-              onPress={() => navigation.navigate('QuickGenerate')}
-            />
-          </View>
-          
-          <View style={globalStyles.gridItem}>
-            <FeatureCard
-              title="Create Custom Story"
-              icon="📚"
-              variant="custom"
-              onPress={() => navigation.navigate('CustomStory')}
+              title="Privacy Policy"
+              icon="🛡️"
+              variant="privacy"
+              onPress={() => navigation.navigate('PrivacyPolicy')}
             />
           </View>
         </View>
@@ -73,7 +76,15 @@ const styles = StyleSheet.create({
   },
   
   scrollContent: {
-    paddingBottom: theme.spacing.xl,
+    flexGrow: 1,
+  },
+  
+  primaryCard: {
+    marginBottom: theme.spacing.md,
+  },
+  
+  secondaryCard: {
+    marginBottom: theme.spacing.md,
   },
 });
 

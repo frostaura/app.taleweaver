@@ -98,14 +98,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
         <View style={styles.contentLines}>
           <View style={[styles.contentLine, { width: '100%' }]} />
           <View style={[styles.contentLine, { width: '80%' }]} />
-          <LinearGradient
-            colors={theme.gradients.accent}
-            style={styles.toggleSwitch}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-          >
-            <View style={styles.toggleKnob} />
-          </LinearGradient>
+          <View style={[styles.contentLine, { width: '90%' }]} />
         </View>
       );
     }
@@ -196,24 +189,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.15)',
     borderRadius: 3,
     marginBottom: theme.spacing.sm,
-  },
-  
-  toggleSwitch: {
-    width: '80%',
-    height: 24,
-    borderRadius: 12,
-    alignSelf: 'center',
-    marginTop: theme.spacing.sm,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    paddingRight: 4,
-  },
-  
-  toggleKnob: {
-    width: 16,
-    height: 16,
-    backgroundColor: theme.colors.white,
-    borderRadius: 8,
   },
 });
 
