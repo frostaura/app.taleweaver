@@ -223,9 +223,9 @@ const CustomStory: React.FC = () => {
         return (
           <StepCard>
             <Title>Child's Name</Title>
-            <Text style={{ textAlign: 'center', marginBottom: '24px' }}>
+            <ChildFriendlyText style={{ textAlign: 'center', marginBottom: '24px' }}>
               What should we call the hero of this story?
-            </Text>
+            </ChildFriendlyText>
             <InputField
               type="text"
               placeholder="Enter child's name"
@@ -239,9 +239,9 @@ const CustomStory: React.FC = () => {
         return (
           <StepCard>
             <Title>Choose Characters</Title>
-            <Text style={{ textAlign: 'center', marginBottom: '24px' }}>
+            <ChildFriendlyText style={{ textAlign: 'center', marginBottom: '24px' }}>
               Select the magical friends for your adventure
-            </Text>
+            </ChildFriendlyText>
             <Grid columns={4}>
               {characters.map(character => (
                 <CharacterOption
@@ -261,9 +261,9 @@ const CustomStory: React.FC = () => {
         return (
           <StepCard>
             <Title>Story Setting</Title>
-            <Text style={{ textAlign: 'center', marginBottom: '24px' }}>
+            <ChildFriendlyText style={{ textAlign: 'center', marginBottom: '24px' }}>
               Where should the adventure take place?
-            </Text>
+            </ChildFriendlyText>
             <Grid columns={2}>
               {themes.map(theme => (
                 <ThemeOption
@@ -282,9 +282,9 @@ const CustomStory: React.FC = () => {
         return (
           <StepCard>
             <Title>Learning Topics</Title>
-            <Text style={{ textAlign: 'center', marginBottom: '24px' }}>
+            <ChildFriendlyText style={{ textAlign: 'center', marginBottom: '24px' }}>
               What should we learn about? (Optional)
-            </Text>
+            </ChildFriendlyText>
             <Grid columns={2}>
               {educationalTopics.map(topic => (
                 <ThemeOption

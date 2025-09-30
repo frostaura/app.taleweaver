@@ -12,7 +12,7 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ navigation }) => {
   return (
     <LinearGradient
-      colors={theme.gradients.background}
+      colors={theme.gradients.background as [string, string, string]}
       style={styles.container}
       start={{ x: 0.5, y: 0 }}
       end={{ x: 0.5, y: 1 }}

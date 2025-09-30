@@ -26,18 +26,18 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   variant,
   onPress
 }) => {
-  const getGradientColors = () => {
+  const getGradientColors = (): [string, string] | [string, string, string] => {
     switch (variant) {
       case 'privacy':
-        return theme.gradients.shield;
+        return theme.gradients.shield as [string, string];
       case 'parental':
-        return theme.gradients.lockGradient;
+        return theme.gradients.lockGradient as [string, string];
       case 'generate':
-        return theme.gradients.accent;
+        return theme.gradients.accent as [string, string];
       case 'custom':
-        return theme.gradients.card;
+        return theme.gradients.card as [string, string];
       default:
-        return theme.gradients.card;
+        return theme.gradients.card as [string, string];
     }
   };
 
@@ -140,7 +140,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
       activeOpacity={0.8}
     >
       <LinearGradient
-        colors={theme.gradients.card}
+        colors={theme.gradients.card as [string, string]}
         style={[globalStyles.card, styles.card]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
