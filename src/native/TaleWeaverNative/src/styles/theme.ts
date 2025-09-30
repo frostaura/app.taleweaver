@@ -20,14 +20,14 @@ export const theme = {
     error: '#F44336'
   },
   gradients: {
-    background: ['#2D1B4E', '#1A0F2E', '#0F0A1D'], // Convert to array for React Native
-    primary: ['#4A3B72', '#2D1B4E'],
-    card: ['#3D2A5C', '#2D1B4E'],
-    cardHover: ['#483574', '#332059'],
-    accent: ['#FFB366', '#FF8E53'],
-    pink: ['#FF6B9D', '#C44569'],
-    lockGradient: ['#FF8E53', '#FFB366'],
-    shield: ['#9B8CE8', '#6B5FBF']
+    background: ['#2D1B4E', '#1A0F2E', '#0F0A1D'] as const, // Convert to array for React Native
+    primary: ['#4A3B72', '#2D1B4E'] as const,
+    card: ['#3D2A5C', '#2D1B4E'] as const,
+    cardHover: ['#483574', '#332059'] as const,
+    accent: ['#FFB366', '#FF8E53'] as const,
+    pink: ['#FF6B9D', '#C44569'] as const,
+    lockGradient: ['#FF8E53', '#FFB366'] as const,
+    shield: ['#9B8CE8', '#6B5FBF'] as const
   },
   shadows: {
     card: {
