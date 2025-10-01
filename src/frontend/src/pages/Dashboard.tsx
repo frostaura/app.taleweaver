@@ -49,7 +49,7 @@ const Dashboard: React.FC = () => {
           title="Parental Controls"
           icon="🔒"
           variant="parental"
-          onClick={() => navigate('/children-manager')}
+          onClick={() => navigate('/parental-controls')}
         />
         
         <FeatureCard
