@@ -8,6 +8,7 @@ import { GlobalStyle } from './styles/components';
 import BackgroundDecorations from './components/BackgroundDecorations';
 import Dashboard from './pages/Dashboard';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import ParentalControls from './pages/ParentalControls';
 import ChildrenManager from './pages/ChildrenManager';
 import QuickGenerate from './pages/QuickGenerate';
 import CustomStory from './pages/CustomStory';
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/parental-controls" element={<ParentalControls />} />
             <Route path="/children-manager" element={<ChildrenManager />} />
             <Route path="/quick-generate" element={<QuickGenerate />} />
             <Route path="/custom-story" element={<CustomStory />} />
