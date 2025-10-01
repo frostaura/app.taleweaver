@@ -50,7 +50,7 @@ const Dashboard: React.FC<DashboardProps> = ({ navigation }) => {
               title="Parental Controls"
               icon="🔒"
               variant="parental"
-              onPress={() => navigation.navigate('ChildrenManager')}
+              onPress={() => navigation.navigate('ParentalControls')}
             />
           </View>
           

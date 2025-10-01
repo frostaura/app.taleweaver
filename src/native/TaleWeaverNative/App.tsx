@@ -11,6 +11,7 @@ import { store } from './src/store';
 import { theme } from './src/styles/theme';
 import Dashboard from './src/pages/Dashboard';
 import PrivacyPolicy from './src/pages/PrivacyPolicy';
+import ParentalControls from './src/pages/ParentalControls';
 import ChildrenManager from './src/pages/ChildrenManager';
 import QuickGenerate from './src/pages/QuickGenerate';
 import CustomStory from './src/pages/CustomStory';
@@ -63,9 +64,14 @@ export default function App() {
               options={{ title: 'Privacy Policy' }}
             />
             <Stack.Screen 
+              name="ParentalControls" 
+              component={ParentalControls}
+              options={{ title: 'Parental Controls' }}
+            />
+            <Stack.Screen 
               name="ChildrenManager" 
               component={ChildrenManager}
-              options={{ title: 'Parental Controls' }}
+              options={{ title: 'Children Manager' }}
             />
             <Stack.Screen 
               name="QuickGenerate" 
