@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Alert } from 'react-native';
+import { useSelector } from 'react-redux';
 import { globalStyles } from '../styles/components';
 import { theme } from '../styles/theme';
 import { MagicWandIcon } from '../components/Icons';
@@ -8,56 +9,59 @@ interface QuickGenerateProps {
   navigation: any;
 }
 
+interface ChildProfile {
+  id: string;
+  name: string;
+  age: number;
+  defaultSettings: {
+    themes: string[];
+    characters: string[];
+    storyLength: string;
+  };
+}
+
+// Mock profile repository for native
+const mockProfiles: ChildProfile[] = [
+  {
+    id: 'profile-1',
+    name: 'Emma',
+    age: 5,
+    defaultSettings: {
+      themes: ['magical-forest', 'castle-kingdom'],
+      characters: ['unicorn-purple', 'fairy-blonde'],
+      storyLength: 'medium',
+    },
+  },
+];
+
 const QuickGenerate: React.FC<QuickGenerateProps> = ({ navigation }) => {
   const [isGenerating, setIsGenerating] = useState(false);
-  const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
-  const [selectedCharacter, setSelectedCharacter] = useState<string | null>(null);
-
-  const themes = [
-    { id: 'adventure', name: 'Adventure', icon: '🗺️' },
-    { id: 'magical', name: 'Magical', icon: '🔮' },
-    { id: 'nature', name: 'Nature', icon: '🌳' },
-    { id: 'space', name: 'Space', icon: '🚀' },
-  ];
-
-  const characters = [
-    { id: 'dragon', name: 'Dragon', icon: '🐉' },
-    { id: 'unicorn', name: 'Unicorn', icon: '🦄' },
-    { id: 'fairy', name: 'Fairy', icon: '🧚' },
-    { id: 'wizard', name: 'Wizard', icon: '🧙' },
-  ];
+  const [activeProfile, setActiveProfile] = useState<ChildProfile | null>(null);
+  
+  useEffect(() => {
+    // Load first profile or active profile
+    // In a real app, this would check Redux state
+    if (mockProfiles.length > 0) {
+      setActiveProfile(mockProfiles[0]);
+    }
+  }, []);
 
   const handleGenerate = () => {
-    if (!selectedTheme || !selectedCharacter) {
-      Alert.alert('Missing Selection', 'Please select both a theme and character first!');
+    if (!activeProfile) {
+      Alert.alert('No Profile', 'Please create a child profile first in Parental Controls');
       return;
     }
 
     setIsGenerating(true);
-    // Simulate story generation
+    // Simulate story generation using profile defaults
     setTimeout(() => {
       setIsGenerating(false);
-      Alert.alert('Story Generated!', 'Your magical story is ready! (This is a demo)');
+      Alert.alert(
+        'Story Generated!',
+        `Story created for ${activeProfile.name}! (This is a demo)\nUsing: ${activeProfile.defaultSettings.themes.join(', ')}`
+      );
     }, 3000);
   };
-
-  const renderSelectionGrid = (items: any[], selectedItem: string | null, onSelect: (id: string) => void) => (
-    <View style={styles.selectionGrid}>
-      {items.map((item) => (
-        <TouchableOpacity
-          key={item.id}
-          style={[
-            globalStyles.selectableItem,
-            selectedItem === item.id && globalStyles.selectableItemSelected,
-          ]}
-          onPress={() => onSelect(item.id)}
-        >
-          <Text style={{ fontSize: 32, marginBottom: theme.spacing.xs }}>{item.icon}</Text>
-          <Text style={globalStyles.selectableItemText}>{item.name}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
 
   return (
     <ScrollView style={globalStyles.container} contentContainerStyle={styles.scrollContent}>
@@ -75,35 +79,58 @@ const QuickGenerate: React.FC<QuickGenerateProps> = ({ navigation }) => {
         </View>
         
         <Text style={globalStyles.subtitle}>Quick Story Generator</Text>
-        <Text style={[globalStyles.textSecondary, styles.description]}>
-          Select a theme and character for instant story magic!
-        </Text>
         
-        {/* Theme Selection */}
-        <View style={styles.sectionContainer}>
-          <Text style={[globalStyles.text, styles.sectionTitle]}>Choose a Theme:</Text>
-          {renderSelectionGrid(themes, selectedTheme, setSelectedTheme)}
-        </View>
-        
-        {/* Character Selection */}
-        <View style={styles.sectionContainer}>
-          <Text style={[globalStyles.text, styles.sectionTitle]}>Choose a Character:</Text>
-          {renderSelectionGrid(characters, selectedCharacter, setSelectedCharacter)}
-        </View>
+        {activeProfile ? (
+          <>
+            <View style={styles.profileInfo}>
+              <Text style={styles.profileName}>{activeProfile.name}'s Story ✨</Text>
+              <Text style={[globalStyles.textSecondary, { textAlign: 'center', marginTop: theme.spacing.xs }]}>
+                Using {activeProfile.name}'s favorite settings
+              </Text>
+              <View style={styles.settingsPreview}>
+                {activeProfile.defaultSettings.themes.slice(0, 2).map((theme, idx) => (
+                  <View key={idx} style={styles.settingBadge}>
+                    <Text style={styles.badgeText}>{theme}</Text>
+                  </View>
+                ))}
+                <View style={styles.settingBadge}>
+                  <Text style={styles.badgeText}>{activeProfile.defaultSettings.storyLength}</Text>
+                </View>
+              </View>
+            </View>
+            
+            <Text style={[globalStyles.textSecondary, styles.description]}>
+              Generate a magical story with one click using {activeProfile.name}'s favorites!
+            </Text>
+          </>
+        ) : (
+          <Text style={[globalStyles.textSecondary, styles.description]}>
+            Create a child profile first to use Quick Generate
+          </Text>
+        )}
         
         <TouchableOpacity
           style={[
             globalStyles.button,
             styles.generateButton,
-            (!selectedTheme || !selectedCharacter || isGenerating) && styles.buttonDisabled,
+            (!activeProfile || isGenerating) && styles.buttonDisabled,
           ]}
           onPress={handleGenerate}
-          disabled={!selectedTheme || !selectedCharacter || isGenerating}
+          disabled={!activeProfile || isGenerating}
         >
           <Text style={globalStyles.buttonText}>
             {isGenerating ? 'Creating Magic... ✨' : '🪄 Generate Story'}
           </Text>
         </TouchableOpacity>
+        
+        {!activeProfile && (
+          <TouchableOpacity
+            style={[globalStyles.buttonSecondary, styles.createProfileButton]}
+            onPress={() => navigation.navigate('ChildrenManager')}
+          >
+            <Text style={globalStyles.buttonText}>Create Child Profile</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </ScrollView>
   );
@@ -111,7 +138,7 @@ const QuickGenerate: React.FC<QuickGenerateProps> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   scrollContent: {
-    paddingBottom: theme.spacing.xl,
+    flexGrow: 1,
   },
   
   navBar: {
@@ -134,30 +161,53 @@ const styles = StyleSheet.create({
   
   description: {
     textAlign: 'center',
-    marginBottom: theme.spacing.xl,
+    marginBottom: theme.spacing.lg,
   },
   
-  sectionContainer: {
-    marginBottom: theme.spacing.xl,
+  profileInfo: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: theme.borderRadius.medium,
+    padding: theme.spacing.md,
+    marginBottom: theme.spacing.lg,
   },
   
-  sectionTitle: {
+  profileName: {
+    color: theme.colors.white,
     fontSize: theme.fontSizes.lg,
-    fontWeight: theme.fontWeights.semibold,
-    marginBottom: theme.spacing.md,
+    fontWeight: theme.fontWeights.bold,
     textAlign: 'center',
   },
   
-  selectionGrid: {
+  settingsPreview: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    gap: theme.spacing.xs,
+    marginTop: theme.spacing.sm,
+  },
+  
+  settingBadge: {
+    backgroundColor: 'rgba(255, 179, 102, 0.2)',
+    paddingVertical: 4,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+  },
+  
+  badgeText: {
+    color: theme.colors.accent,
+    fontSize: theme.fontSizes.sm,
   },
   
   generateButton: {
     width: '100%',
-    marginTop: theme.spacing.xl,
+    marginTop: theme.spacing.lg,
     paddingVertical: theme.spacing.lg,
+  },
+  
+  createProfileButton: {
+    width: '100%',
+    marginTop: theme.spacing.md,
+    paddingVertical: theme.spacing.md,
   },
   
   buttonDisabled: {

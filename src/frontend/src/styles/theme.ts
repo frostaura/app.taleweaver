@@ -52,7 +52,9 @@ export const theme = {
   },
   fonts: {
     primary: "'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    heading: "'Poppins', 'Inter', sans-serif"
+    heading: "'Poppins', 'Inter', sans-serif",
+    childFriendly: "'Quicksand', 'Nunito', 'Comic Neue', 'Helvetica Neue', sans-serif", // Rounded, playful
+    parentFriendly: "'Inter', 'Roboto', 'Helvetica Neue', sans-serif" // Clean, professional
   },
   fontSizes: {
     xs: '12px',

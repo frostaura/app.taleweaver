@@ -222,27 +222,22 @@ const ProgressPlaceholder = styled.div`
   }
 `;
 
-const ToggleSwitch = styled.div`
-  width: 80%;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  position: relative;
-  margin: ${props => props.theme.spacing.md} auto;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    width: 16px;
-    height: 16px;
-    background: ${props => props.theme.colors.accent};
-    border-radius: 50%;
-    transition: all 0.3s ease;
-  }
+const CardTitle = styled(Subtitle).withConfig({
+  shouldForwardProp: (prop) => !['variant'].includes(prop),
+})<{ variant: 'privacy' | 'parental' | 'generate' | 'custom' }>`
+  margin-bottom: 12px;
+  font-size: ${props => props.variant === 'generate' || props.variant === 'custom' ? '18px' : '16px'};
+  font-family: ${props => 
+    props.variant === 'generate' || props.variant === 'custom' 
+      ? props.theme.fonts.childFriendly 
+      : props.theme.fonts.parentFriendly
+  };
+  font-weight: ${props => 
+    props.variant === 'generate' || props.variant === 'custom' 
+      ? props.theme.fontWeights.bold 
+      : props.theme.fontWeights.semibold
+  };
+  letter-spacing: ${props => props.variant === 'generate' || props.variant === 'custom' ? '0.5px' : '0'};
 `;
 
 const FeatureCard: React.FC<FeatureCardProps> = ({
@@ -314,7 +309,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
       
       <ContentArea>
         {renderIcon()}
-        <Subtitle style={{ marginBottom: '12px', fontSize: '18px' }}>{title}</Subtitle>
+        <CardTitle variant={variant}>{title}</CardTitle>
         
 
         
@@ -390,9 +385,14 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
               height: '6px', 
               background: 'rgba(255, 255, 255, 0.15)', 
               borderRadius: '3px',
-              marginBottom: '12px'
+              marginBottom: '8px'
             }} />
-            <ToggleSwitch />
+            <div style={{ 
+              width: '90%', 
+              height: '6px', 
+              background: 'rgba(255, 255, 255, 0.15)', 
+              borderRadius: '3px'
+            }} />
           </div>
         )}
         
